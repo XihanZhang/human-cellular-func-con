@@ -7,3 +7,7 @@ Analysis code for [The cellular underpinning of human cortical functional connec
 - Extract and aggregate necessary information from tables downloaded from [AHBA](http://human.brain-map.org/)
 - Input: downloaded AHBA raw data (specifically, the `top_level_categories.csv`, and `SampleAnnot.csv`, `Ontology.csv` for each donor)
 - Output: `ahba_sampleInfo.csv`
+### `01_tutorial.ipynb` Part 1.
+- Using abagen to correct the old MNI coordinates
+- Input: `ahba_sampleInfo.csv`
+- Output: `ahba_sampleInfo_reannot.csv`
