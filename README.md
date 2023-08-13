@@ -11,3 +11,6 @@ Analysis code for [The cellular underpinning of human cortical functional connec
 - Using abagen to correct the old MNI coordinates
 - Input: `ahba_sampleInfo.csv`
 - Output: `ahba_sampleInfo_reannot.csv`
+### `01_1_project_freesurfer.bash`
+- Project fsLR parcellations to individual AHBA freesurfer space
+- Input and output files are in the `mri`, `surf`, `label` folders under each donor dirs that sit wherever the abagen download dir sit, within `/abated-data/freesurfer`. (e.g. `/Users/zhangxihan/abated-data/freesurfer/donor9861/mri` by default, but I moved the entire freesurfer fold to `/gpfs/milgram/project/holmes/xz555/gradient_shift/data/ahba_fs`)
