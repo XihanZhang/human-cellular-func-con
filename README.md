@@ -15,4 +15,4 @@ Analysis code for [The cellular underpinning of human cortical functional connec
 - Project fsLR parcellations to individual AHBA freesurfer space
 - Input and output files are in the `mri`, `surf`, `label` folders under each donor dirs that sit wherever the abagen download dir sit, within `/abated-data/freesurfer`.
 
-(e.g. abagen by default download the files to `/Users/zhangxihan/abated-data/freesurfer/donor9861/mri`, but I moved the entire freesurfer fold to `/gpfs/milgram/project/holmes/xz555/gradient_shift/data/ahba_fs`)
+(e.g. abagen by default download the files to `/Users/zhangxihan/abated-data/freesurfer/donor9861/mri`, but I moved the entire freesurfer folder to `/gpfs/milgram/project/holmes/xz555/gradient_shift/data/ahba_fs`)
