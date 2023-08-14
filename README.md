@@ -29,7 +29,7 @@ Analysis code for [The cellular underpinning of human cortical functional connec
 - Pre-process the gene under different combinations of parameters of abagen toolbox.
 
 ### `01_4_GeneSymbolToEntrezID.R` (Also in `01_tutorial.ipynb` Part 3 Step 2)
-- Some Entrez ID are missing in the AHBA tables, so in the earlier works, the probes survived from the QC but missing Entrez ID were removed. Those probes have a gene symbol with them, so we used these gene symbol as index and pull out their corresponding Entre ID from the human genome wide annotation `org.Hs.eg.db`.
+- Some Entrez ID are missing in the AHBA tables, so in the earlier works, the probes survived from the QC but missing Entrez ID were removed. Those probes have a gene symbol with them, so in this current work, we used these gene symbol as index and pull out their corresponding Entre ID from the human genome wide annotation `org.Hs.eg.db`.
 
 ### `01_5_make_probe_table.py` (Also in `01_tutorial.ipynb` Part 3 Step 3)
 - Assemble the probe information into a table for later analysis.
