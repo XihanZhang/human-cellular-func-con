@@ -23,3 +23,16 @@ Analysis code for [The cellular underpinning of human cortical functional connec
 - Map native space AHBA sample coordinates (x,y,z) onto a 32k midthickness file that is spatially aligned with native cortical geometry (vertices are aligned across individuals)
 - Input: `ahba_sampleInfo_reannot.csv` + files generated from `01_1_project_freesurfer.bash`.
 - Output: `sample_info_vertex_reannot_mapped.csv`
+
+### `01_3_preprocess_ahba_abagen.py` (Also in `01_tutorial.ipynb` Part 3 Step 1)
+- Pre-process the gene under different combinations of parameters of abagen toolbox. The resulted gene lists were later compared with the gene list generated from previous published works by Anderson et al. Which validated the processed AHBA gene expressions and the imputed cell types that based upon it.
+[Anderson, KM, Collins, MA, Chin, R, Ge T, Rosenberg MD, Holmes AJ. (2020). Transcriptional and imaging-genetic association of cortical interneurons, brain function, and schizophrenia risk. Nature Communications, 11, 2889](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7280213/pdf/41467_2020_Article_16710.pdf)
+
+### `01_4_GeneSymbolToEntrezID.R` (Also in `01_tutorial.ipynb` Part 3 Step 2)
+- Some Entrez ID are missing in the AHBA tables, so in the earlier works, the probes survived from the QC but missing Entrez ID are removed. Those probes have a gene symbol with them, so we used these gene symbol as index and pull out their corresponding Entre ID from the human genome wide annotation `org.Hs.eg.db`.
+
+### `01_5_make_probe_table.py` (Also in `01_tutorial.ipynb` Part 3 Step 3)
+- Assemble the probe information into a table for later analysis.
+
+### `01_6_make_abagen_object.R`
+- Convert the table into R object for later analyses that run in R.
