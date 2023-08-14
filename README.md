@@ -5,7 +5,7 @@ Analysis code for [The cellular underpinning of human cortical functional connec
 ## Part A: processing and aligning AHBA bulk tissue samples
 ### `00_aggregate_ahba.R`
 - Extract and aggregate necessary information from tables downloaded from [AHBA](http://human.brain-map.org/)
-- Partial data of the AHBA downloaded by abagen are provided in (/microarray/normalized_microarray_donor9861), as an example.
+- Partial data of the AHBA downloaded by abagen are provided in `/microarray/normalized_microarray_donor9861`, as an example.
 - Input: downloaded AHBA raw data (specifically, the `top_level_categories.csv`, and `SampleAnnot.csv`, `Ontology.csv` for each donor)
 - Output: `ahba_sampleInfo.csv`
 
