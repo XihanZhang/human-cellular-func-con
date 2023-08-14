@@ -40,3 +40,9 @@ Compares the processed gene lists from different parameter combo of abagen with 
 
 ### `01_6_make_abagen_object.R`
 - Convert the table into R object for later analyses that run in R.
+
+### `02_vertex_to_schaeffer_parcel.R`
+- Makes parcel-wise gene expression averages for each ROI in the 200/300/400/1000 7/17 Network parcellations of Scheaffer et al (2018). In our work, we used 400 and 7 network resolution.
+- You can easily change the ROI and network resolution by changing the number in the script. Just remember to download the parcellation from [Git repo of Thomas Yeo group](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/HCP/fslr32k/cifti), and cite [Schaeffer et al (Cerebral Cortex 2018)](https://doi.org/10.1093/cercor/bhx179). (e.g. `Schaefer2018_300Parcels_7Networks_order.dscalar.nii` and `Schaefer2018_300Parcels_7Networks_order_info.txt` for 300 ROIs of 7 networks).
+- The aggregation was done across all donors and within each donor, but you need within donor aggregation for cell type deconvolution to control for the batch effect. Abagen toolbox did the sample and gene normalization within each donor, so it suits our purpose well in this case.
+- The number of donor contributing to and the dominant donor within each parcel is reported in csv files, which help you to check the donor dominance issue. (e.g. `schaeffer300_7_numDonorsInEachParcel_abagen_NormZscore0.3.csv` and `schaeffer300_7_maxDonorPresenceInParcel_abagen_NormZscore0.3.csv` for 300 ROIs of 7 networks)
