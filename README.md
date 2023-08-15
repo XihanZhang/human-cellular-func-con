@@ -49,6 +49,13 @@ Compares the processed gene lists from different parameter combo of abagen with 
 - The number of donor contributing to and the dominant donor within each parcel is reported in csv files, which help you to check the donor dominance issue. (e.g. `schaeffer300_7_numDonorsInEachParcel_abagen_NormZscore0.3.csv` and `schaeffer300_7_maxDonorPresenceInParcel_abagen_NormZscore0.3.csv` for 300 ROIs of 7 networks)
 
 ### `03_preprocess_lake_data.R`
+Preprocesses raw single-cell UMI visual and frontal cortex data from [Lake et al. 2018](https://www.nature.com/articles/nbt.4038). Freely available for download [here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE97930).
+- Applies basic preprocessing steps using the Seurat package.
+(1) identification of cell and gene expression outliers.
+(2) log-normalization.
+(3) scaling and regression of number of detected genes per cell.
+- Create gene name dictionary to match AHBA genes to sn-DropSeq genes.
+- Write *seurat_processed.Rdata data objects for later reading.
 
 ### `04_cibersortx_prep.R`
 
