@@ -61,7 +61,7 @@ Preprocesses raw single-cell UMI visual and frontal cortex data from [Lake et al
 For visual and frontal cortex sn-DropSeq data, subset to those genes that are present in both.
 - Transform data out of log-space (format expected by CIBERSORTx).
 - To reduce collinearity among gene signature matrix, collapse cell subtypes into overarching categorie (e.g. In6a and In6b cell become just PVALB).
-- Write single-nuclei expression matrix, and AHBA mixture files per donor (to control for batch effect).
+- Write single-nuclei expression matrix, and AHBA mixture files per donor, as the cell type deconvolution should be done at the sample level and within-donor to control for batch effect. That's why we ask abagen to output the result at the sample level, instead of the parcel level. Abagen toolbox did the sample and gene normalization within each donor, so it suits our purpose well in this case.
 
 ### Cell type deconvolution is performed at [CIBERSORTx](https://cibersortx.stanford.edu/)
 - Files to feed CIBERSORTx:
@@ -77,6 +77,6 @@ For visual and frontal cortex sn-DropSeq data, subset to those genes that are pr
 
 ### `05a_vertex_to_schaeffer_parcel_cell.R`
 - In our work, we used 400 and 7 network resolution.
-- You need the within-donor aggregation for cell type deconvolution to control for the batch effect. Abagen toolbox did the sample and gene normalization within each donor, so it suits our purpose well in this case.
+- 
 
 ### `05b_cibersortx_compare_plots.R`
