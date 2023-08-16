@@ -76,7 +76,11 @@ For visual and frontal cortex sn-DropSeq data, subset to those genes that are pr
 - Download the reults and figures.
 
 ### `05a_vertex_to_schaeffer_parcel_cell.R`
-- In our work, we used 400 and 7 network resolution.
-- 
+- Makes parcel-wise gene expression averages for each ROI in the 200/300/400/1000 7/17 Network parcellations of Scheaffer et al (2018).
+- In our work, we used 400 parcels and 7 networks resolution. You can easily change the ROI and network resolution by changing the number in the script. Just remember to download the parcellation from [Git repo of Thomas Yeo group](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/HCP/fslr32k/cifti), and cite [Schaeffer et al (Cerebral Cortex 2018)](https://doi.org/10.1093/cercor/bhx179). (e.g. `Schaefer2018_300Parcels_7Networks_order.dscalar.nii` and `Schaefer2018_300Parcels_7Networks_order_info.txt` for 300 ROIs of 7 networks).
+- Also plot the gene expression signature matrices, gene expression signature correlation matrices, and the cortical cell type fraction correlation matrices of Lake_DFC and Lake_VIS. 
 
 ### `05b_cibersortx_compare_plots.R`
+- This script is the plotting part of the `05a_vertex_to_schaeffer_parcel_cell.R`. It mainly serves the purpose of making plots for the cell-type fractions imputed from AHBA processed under different combinations of parameters. You can skip this script if you just want to use the final combo for your project.
+
+### 
