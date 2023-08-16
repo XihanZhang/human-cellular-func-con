@@ -83,4 +83,8 @@ For visual and frontal cortex sn-DropSeq data, subset to those genes that are pr
 ### `05b_cibersortx_compare_plots.R`
 - This script is the plotting part of the `05a_vertex_to_schaeffer_parcel_cell.R`. It mainly serves the purpose of making plots for the cell-type fractions imputed from AHBA processed under different combinations of parameters. You can skip this script if you just want to use the final combo for your project.
 
-### 
+### Cell-type fractions in Schaefer 300/400/1000 parcellation are provided in `/para/data/ahba`.
+e.g. for schaefer 400, files are:
+- `schaeffer_LAKE_DFC_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_DFC and AHBA processed with `ibf=0.3`, `normalization=zscore`.
+- `schaeffer_LAKE_VIS_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_VIS and AHBA processed with `ibf=0.3`, `normalization=zscore`.
+- `schaefer_400_7Net_labels.csv`, for the corresponding labels of the networks.
