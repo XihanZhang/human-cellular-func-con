@@ -61,8 +61,19 @@ Preprocesses raw single-cell UMI visual and frontal cortex data from [Lake et al
 For visual and frontal cortex sn-DropSeq data, subset to those genes that are present in both.
 - Transform data out of log-space (format expected by CIBERSORTx).
 - To reduce collinearity among gene signature matrix, collapse cell subtypes into overarching categorie (e.g. In6a and In6b cell become just PVALB).
-- Write single-cell expression matrix, and AHBA mixture files per donor (to control for batch effect).
-- Files 
+- Write single-nuclei expression matrix, and AHBA mixture files per donor (to control for batch effect).
+
+### Cell type deconvolution is performed at [CIBERSORTx](https://cibersortx.stanford.edu/)
+- Files to feed CIBERSORTx:
+- 1) donor-level `Mixture` matrix (e.g. for donor 9861): `FrontalCortex_ahba_9861_mixture_new_NormZscore0.3.txt`, `VisualCortex_ahba_9861_mixture_new_NormZscore0.3.txt`
+- 2) `Single Cell Reference` matrix: `Lake_FrontalCortex_ahba_matched_sc_sample_new_NormZscore0.3.txt`, `Lake_VisualCortex_ahba_matched_sc_sample_new_NormZscore0.3.txt`
+- Procedures in CIBERSORTx:
+- 1) Upload the above files: `Menu` -> `Upload Files`
+- 2) Calculated expression signature for Lake_DFC and Lake_VIS (taking Lake_VIS as example):
+     `Menu` -> `Run CIBERSORTx` -> `Create Signature Matrix` -> `Custom` -> `scRNA-Seq` -> Single cell reference matrix file: `Lake_VisualCortex_ahba_matched_sc_sample_new_NormZscore0.3.txt` -> check `Disable quantile normalization` -> Unfold `Single Cell Input Options` -> `Min. Expression`=0.5 (or 0) -> `Run`
+- 3) Impute cell type fractions (taking donor 9861 with Lake_VIS as example):
+     `Menu` -> `Impute Cell Fractions` -> `Custom` -> Signature matrix file: the file derived from 2) above -> Mixture file: `VisualCortex_ahba_9861_mixture_new_NormZscore0.3.txt` -> check `Enable batch correction` -> `S-mode` -> Single cell reference matrix file: `Lake_VisualCortex_ahba_matched_sc_sample_new_NormZscore0.3.txt` -> check `Disable quantile normalization` -> check `Run in absolute mode` -> Permutations for significance analysis: None
+- Download the reults and figures.
 
 ### `05a_vertex_to_schaeffer_parcel_cell.R`
 - In our work, we used 400 and 7 network resolution.
