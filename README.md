@@ -92,4 +92,8 @@ e.g. for schaefer 400, files are:
 ## Part B: Parceling the gradients and comparing with cell type abundance distribution
 ### `06_hcp_gradient_giitonii.sh`
 - Convert the gradients stored in gifti to nifti.
-- 
+
+### `07_SpintestHCPGradient.m`
+- Spins the gradient 1 and 2 values on fsaverage5.
+- Parcel the gradient values in Schaefer 400.
+- Calculate the parcel-level correlation between gradient values and cell type abundances, and calculate the p-value based on the null gradients generated from spin-test.
