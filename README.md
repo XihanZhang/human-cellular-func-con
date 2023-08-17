@@ -88,3 +88,8 @@ e.g. for schaefer 400, files are:
 - `schaeffer_LAKE_DFC_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_DFC and AHBA processed with `ibf=0.3`, `normalization=zscore`.
 - `schaeffer_LAKE_VIS_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_VIS and AHBA processed with `ibf=0.3`, `normalization=zscore`.
 - `schaefer_400_7Net_labels.csv`, for the corresponding labels of the networks.
+
+## Part B: Parceling the gradients and comparing with cell type abundance distribution
+### `06_hcp_gradient_giitonii.sh`
+- Convert the gradients stored in gifti to nifti.
+- 
