@@ -97,3 +97,17 @@ e.g. for schaefer 400, files are:
 - Spins the gradient 1 and 2 values on fsaverage5.
 - Parcel the gradient values in Schaefer 400.
 - Calculate the parcel-level correlation between gradient values and cell type abundances, and calculate the p-value based on the null gradients generated from spin-test.
+- Requires matlab package download from [Alexander et al.](https://github.com/spin-test/spin-test).
+
+### `07a_VisualizationFig1_GradientNetwork.ipynb`
+- Make plots for Figure 1.
+
+### `07b_VisualizationFig2Supp1-2_CellGradientCorrelation.ipynb`
+- Make plots for Figure 2 and supplement figure 1-2.
+
+### `08a_PermCCA_GradientVarbyAllCell.m`
+- Permulational CCA between gradients and all cell types common between Lake_DFC and Lake_VIS.
+- Require Matlab software download from [Winkler et al.](https://github.com/andersonwinkler/PermCCA).
+
+### `08b_PermCCA_GradualRemoval.m`
+- Permulational CCA between gradients and cell types with different removal combinations of gradient-correlated cell types.
