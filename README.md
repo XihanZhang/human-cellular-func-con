@@ -103,7 +103,7 @@ e.g. for schaefer 400, files are:
 - Make plots for Figure 1.
 
 ### `07b_VisualizationFig2Supp1-2_CellGradientCorrelation.ipynb`
-- Make plots for Figure 2 and supplement figure 1-2.
+- Make plots for Figure 2 and supplement figures 1-2.
 
 ### `08a_PermCCA_GradientVarbyAllCell.m`
 - Permulational CCA between gradients and all cell types common between Lake_DFC and Lake_VIS.
@@ -111,3 +111,12 @@ e.g. for schaefer 400, files are:
 
 ### `08b_PermCCA_GradualRemoval.m`
 - Permulational CCA between gradients and cell types with different removal combinations of gradient-correlated cell types.
+
+### `08c_VisualizationFig3Supp3-4_PermCCA.ipynb`
+- Make plots for Figure 3 and supplement figures 3-4.
+
+
+
+
+
+
