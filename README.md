@@ -43,7 +43,7 @@ Compares the processed gene lists from different parameter combo of abagen with 
 
 ### `02_vertex_to_schaeffer_parcel_gene.R`
 - This script is not directly contributing to the current work, as the cell type deconvolution should be done at the sample level and within-donor to control for batch effect. We provide this script as a BONUS for people who want to parcel the gene expression into Schaefer atlas.
-- Makes parcel-wise gene expression averages for each ROI in the 200/300/400/1000 7/17 Network parcellations of Scheaffer et al (2018).
+- Makes parcel-wise gene expression averages for each ROI in the 100/200/300/400/500/600/700/800/900/1000 7/17 Network parcellations of Scheaffer et al (2018).
 - You can easily change the ROI and network resolution by changing the number in the script. Just remember to download the parcellation from [Git repo of Thomas Yeo group](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/HCP/fslr32k/cifti), and cite [Schaeffer et al (Cerebral Cortex 2018)](https://doi.org/10.1093/cercor/bhx179). (e.g. `Schaefer2018_300Parcels_7Networks_order.dscalar.nii` and `Schaefer2018_300Parcels_7Networks_order_info.txt` for 300 ROIs of 7 networks).
 - This script allows gene expression aggregation across all donors and within each donor.
 - The number of donor contributing to and the dominant donor within each parcel is reported in csv files, which help you to check the donor dominance issue. (e.g. `schaeffer300_7_numDonorsInEachParcel_abagen_NormZscore0.3.csv` and `schaeffer300_7_maxDonorPresenceInParcel_abagen_NormZscore0.3.csv` for 300 ROIs of 7 networks)
@@ -83,7 +83,7 @@ For visual and frontal cortex sn-DropSeq data, subset to those genes that are pr
 ### `05b_cibersortx_compare_plots.R`
 - This script is the plotting part of the `05a_vertex_to_schaeffer_parcel_cell.R`. It mainly serves the purpose of making plots for the cell-type fractions imputed from AHBA processed under different combinations of parameters. You can skip this script if you just want to use the final combo for your project.
 
-### Cell-type fractions in Schaefer 300/400/1000 parcellation are provided in `/para/data/ahba`.
+### Cell-type fractions in Schaefer 100/200/300/400/500/600/700/800/900/1000 parcellation are provided in `/para/data/ahba`.
 e.g. for schaefer 400, files are:
 - `schaeffer_LAKE_DFC_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_DFC and AHBA processed with `ibf=0.3`, `normalization=zscore`.
 - `schaeffer_LAKE_VIS_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_VIS and AHBA processed with `ibf=0.3`, `normalization=zscore`.
