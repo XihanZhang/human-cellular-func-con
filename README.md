@@ -2,6 +2,14 @@
 
 Analysis code for [The cellular underpinning of human cortical functional connectome (under review)](https://www.biorxiv.org/content/10.1101/2023.07.05.547828v1.abstract)
 
+### Cell-type fractions in Schaefer 100/200/300/400/500/600/700/800/900/1000 parcellation are provided in `/cell_maps`.
+e.g. for schaefer 400, files are:
+- `schaeffer_LAKE_DFC_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_DFC and AHBA processed with `ibf=0.3`, `normalization=zscore`.
+- `schaeffer_LAKE_VIS_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_VIS and AHBA processed with `ibf=0.3`, `normalization=zscore`.
+- `schaefer_400_7Net_labels.csv`, for the corresponding labels of the networks.
+- `schaeffer400_7_numDonorsInEachParcel_abagen_NormZscore0.3.csv`, the number of donors contributing to each parcel.
+- `schaeffer400_7_maxDonorPresenceInParcel_abagen_NormZscore0.3.csv`, the dominant donor within each parcel.
+  
 ## Part A: processing and aligning AHBA bulk tissue samples
 ### `00_aggregate_ahba.R`
 - Extract and aggregate necessary information from tables downloaded from [AHBA](http://human.brain-map.org/)
@@ -82,12 +90,6 @@ For visual and frontal cortex sn-DropSeq data, subset to those genes that are pr
 
 ### `05b_cibersortx_compare_plots.R`
 - This script is the plotting part of the `05a_vertex_to_schaeffer_parcel_cell.R`. It mainly serves the purpose of making plots for the cell-type fractions imputed from AHBA processed under different combinations of parameters. You can skip this script if you just want to use the final combo for your project.
-
-### Cell-type fractions in Schaefer 100/200/300/400/500/600/700/800/900/1000 parcellation are provided in `/para/data/ahba`.
-e.g. for schaefer 400, files are:
-- `schaeffer_LAKE_DFC_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_DFC and AHBA processed with `ibf=0.3`, `normalization=zscore`.
-- `schaeffer_LAKE_VIS_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_VIS and AHBA processed with `ibf=0.3`, `normalization=zscore`.
-- `schaefer_400_7Net_labels.csv`, for the corresponding labels of the networks.
 
 ## Part B: Parceling the gradients and comparing with cell type abundance distribution
 ### `06_hcp_gradient_giitonii.sh`
