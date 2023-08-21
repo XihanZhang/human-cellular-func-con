@@ -122,7 +122,7 @@ For visual and frontal cortex sn-DropSeq data, subset to those genes that are pr
 
 ## Part C: Network-level cell type enrichment
 
-## Part D: Network-level cell type enrichment
+## Part D: Predicting functional network from cell type abundance
 
 
 
