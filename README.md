@@ -3,6 +3,7 @@
 This repo provide analysis-ready cell type abundance maps and analysis code for [The cellular underpinning of human cortical functional connectome (under review)](https://www.biorxiv.org/content/10.1101/2023.07.05.547828v1.abstract)
 
 ## Analysis-ready cell maps
+Please cite the above paper for the use of these maps:
 ### Cell-type fractions in Schaefer 100/200/300/400/500/600/700/800/900/1000 parcellation are provided in `/cell_maps`.
 e.g. for schaefer 400, files are:
 - `schaeffer_LAKE_DFC_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_DFC and AHBA processed with `ibf=0.3`, `normalization=zscore`.
