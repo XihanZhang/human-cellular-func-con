@@ -5,12 +5,16 @@ This repo provide analysis-ready cell type abundance maps and analysis code for 
 ## Analysis-ready cell maps
 Please cite the above paper for the use of these maps:
 ### Cell-type fractions in Schaefer 100/200/300/400/500/600/700/800/900/1000 parcellation are provided in `/cell_maps`.
-e.g. for schaefer 400, files are:
+e.g. for group-aggregated cell type abundances in schaefer 400 and 7 network parcellation, files are:
 - `schaeffer_LAKE_DFC_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_DFC and AHBA processed with `ibf=0.3`, `normalization=zscore`.
 - `schaeffer_LAKE_VIS_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_VIS and AHBA processed with `ibf=0.3`, `normalization=zscore`.
 - `schaefer_400_7Net_labels.csv`, for the corresponding labels of the networks.
 - `schaeffer400_7_numDonorsInEachParcel_abagen_NormZscore0.3.csv`, the number of donors contributing to each parcel.
 - `schaeffer400_7_maxDonorPresenceInParcel_abagen_NormZscore0.3.csv`, the dominant donor within each parcel.
+and the donor level cell type abundances in schaefer 400 and 7 network parcellations are within `/cell_maps/donor_level_cell_maps`
+Toy code to visualize the group-aggregated cell type abundances in schaefer 400 and 7 network parcellation, and spin-test are provided for quick understanding.
+- `1_CellAbundance_Visulization.ipynb`: for visualization.
+- `2_spintesting-cleaned.ipynb`: for spin-testing.
 
 ## Analysis code for the paper
 ## Part A: processing and aligning AHBA bulk tissue samples
