@@ -17,6 +17,7 @@ Toy code to visualize the group-aggregated cell type abundances in schaefer 400 
 - `2_spintesting-cleaned.ipynb`: for spin-testing.
 
 ## Analysis code for the paper
+Please cite the above paper for the use of these code:
 ## Part A: processing and aligning AHBA bulk tissue samples
 ### `00_aggregate_ahba.R`
 - Extract and aggregate necessary information from tables downloaded from [AHBA](http://human.brain-map.org/)
