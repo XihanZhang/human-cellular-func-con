@@ -169,15 +169,11 @@ for ( para in c('NormZscore0.3') ){
   for (parcels in c('100','200','300','400','500','600','700','800','900','1000')){
     net = '17'
     # schaeffer parcellation by vertex
-    #schaeffer  = paste0(base_dir, '/data/Schaefer/Schaefer2018_',parcels,'Parcels_',net,'Networks_order.dscalar.nii')
-    # updated schaefer atlas for the 17 resolution
-    schaeffer  = paste0(base_dir, '/data/Schaefer/Schaefer2018_',parcels,'Parcels_Kong2022_',net,'Networks_order.dscalar.nii')
+    schaeffer  = paste0(base_dir, '/data/Schaefer/Schaefer2018_',parcels,'Parcels_',net,'Networks_order.dscalar.nii')
     schaef_cii = read_cifti(schaeffer, drop_data = TRUE, trans_data = TRUE)
     
     # corresponding parcel labels
-    #schaeffer_labels = read_csv(col_names=F, paste0(base_dir, '/data/Schaefer/Schaefer2018_',parcels,'Parcels_',net,'Networks_order_info.txt'))
-    # updated schaefer atlas for the 17 resolution
-    schaeffer_labels = read_csv(col_names=F, paste0(base_dir, '/data/Schaefer/Schaefer2018_',parcels,'Parcels_Kong2022_',net,'Networks_order_info.txt'))
+    schaeffer_labels = read_csv(col_names=F, paste0(base_dir, '/data/Schaefer/Schaefer2018_',parcels,'Parcels_',net,'Networks_order_info.txt'))
     schaef_labels    = schaeffer_labels$X1[grep('Network', schaeffer_labels$X1)]
     
     head(schaef_cii$data)
@@ -209,10 +205,7 @@ for ( para in c('NormZscore0.3') ){
     parcel_max_brain = as.data.frame(parcel_max_brain)
     
     # updated schaefer atlas for the 17 resolution
-    #write_csv(parcel_brain_compisition, path=paste0(base_dir, '/data/ahba/schaeffer',parcels,'_',net,'_numDonorsInEachParcel_abagen_',para,'.csv'))
-    #write_csv(parcel_max_brain, path=paste0(base_dir, '/data/ahba/schaeffer',parcels,'_',net,'_maxDonorPresenceInParcel_abagen_',para,'.csv'))
-    # updated schaefer atlas for the 17 resolution
-    write_csv(parcel_brain_compisition, path=paste0(base_dir, '/data/ahba/schaeffer',parcels,'_Kong2022_',net,'_numDonorsInEachParcel_abagen_',para,'.csv'))
-    write_csv(parcel_max_brain, path=paste0(base_dir, '/data/ahba/schaeffer',parcels,'_Kong2022_',net,'_maxDonorPresenceInParcel_abagen_',para,'.csv'))
+    write_csv(parcel_brain_compisition, path=paste0(base_dir, '/data/ahba/schaeffer',parcels,'_',net,'_numDonorsInEachParcel_abagen_',para,'.csv'))
+    write_csv(parcel_max_brain, path=paste0(base_dir, '/data/ahba/schaeffer',parcels,'_',net,'_maxDonorPresenceInParcel_abagen_',para,'.csv'))
   }
 }
