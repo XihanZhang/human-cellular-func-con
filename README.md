@@ -18,53 +18,53 @@ Toy code to visualize the group-aggregated cell type abundances in schaefer 400 
 
 ## Analysis code for the paper
 Please cite the above paper for the use of these code:
-## Part A: processing and aligning AHBA bulk tissue samples
-### `00_aggregate_ahba.R`
+### Part A: processing and aligning AHBA bulk tissue samples
+#### `00_aggregate_ahba.R`
 - Extract and aggregate necessary information from tables downloaded from [AHBA](http://human.brain-map.org/)
 - Partial data of the AHBA downloaded by abagen are provided in `/microarray/normalized_microarray_donor9861`, as an example.
 - Input: downloaded AHBA raw data (specifically, the `top_level_categories.csv`, and `SampleAnnot.csv`, `Ontology.csv` for each donor)
 - Output: `ahba_sampleInfo.csv`
 
-### `01_tutorial.ipynb` Part 1.
+#### `01_tutorial.ipynb` Part 1.
 - Using abagen to correct the old MNI coordinates
 - Input: `ahba_sampleInfo.csv`
 - Output: `ahba_sampleInfo_reannot.csv`
   
-### `01_1_project_freesurfer.bash` (Also in `01_tutorial.ipynb` Part 2 Step 1)
+#### `01_1_project_freesurfer.bash` (Also in `01_tutorial.ipynb` Part 2 Step 1)
 - Project fsLR parcellations to individual AHBA freesurfer space
 - Input and output files are in the `mri`, `surf`, `label` folders under each donor dirs that sit wherever the abagen download dir sit, within `/abated-data/freesurfer`.
 
 (e.g. abagen by default download the files to `/Users/zhangxihan/abated-data/freesurfer/donor9861/mri`, but I moved the entire freesurfer folder to `/gpfs/milgram/project/holmes/xz555/gradient_shift/data/ahba_fs`)
 
-### `01_2_map_ahba_ctx_to_surface.py` (Also in `01_tutorial.ipynb` Part 2 Step 2)
+#### `01_2_map_ahba_ctx_to_surface.py` (Also in `01_tutorial.ipynb` Part 2 Step 2)
 - Map native space AHBA sample coordinates (x,y,z) onto a 32k midthickness file that is spatially aligned with native cortical geometry (vertices are aligned across individuals)
 - Input: `ahba_sampleInfo_reannot.csv` + files generated from `01_1_project_freesurfer.bash`.
 - Output: `sample_info_vertex_reannot_mapped.csv`
 
-### `01_3_preprocess_ahba_abagen.py` (Also in `01_tutorial.ipynb` Part 3 Step 1)
+#### `01_3_preprocess_ahba_abagen.py` (Also in `01_tutorial.ipynb` Part 3 Step 1)
 - Pre-process the gene under different combinations of parameters of abagen toolbox.
 
-### `01_4_GeneSymbolToEntrezID.R` (Also in `01_tutorial.ipynb` Part 3 Step 2)
+#### `01_4_GeneSymbolToEntrezID.R` (Also in `01_tutorial.ipynb` Part 3 Step 2)
 - Some Entrez ID are missing in the AHBA tables, so in the earlier works, the probes survived from the QC but missing Entrez ID were removed. Those probes have a gene symbol with them, so in this current work, we used these gene symbol as index and pull out their corresponding Entre ID from the human genome wide annotation `org.Hs.eg.db`.
 
-### `01_5_make_probe_table.py` (Also in `01_tutorial.ipynb` Part 3 Step 3)
+#### `01_5_make_probe_table.py` (Also in `01_tutorial.ipynb` Part 3 Step 3)
 - Assemble the probe information into a table for later analysis.
 
-### `01_tutorial.ipynb` Part 4.
+#### `01_tutorial.ipynb` Part 4.
 Compares the processed gene lists from different parameter combo of abagen with the gene list generated from previous published works by Anderson et al. Which validated the processed AHBA gene expressions and the imputed cell types that based upon it.
 [Anderson, KM, Collins, MA, Chin, R, Ge T, Rosenberg MD, Holmes AJ. (2020). Transcriptional and imaging-genetic association of cortical interneurons, brain function, and schizophrenia risk. Nature Communications, 11, 2889](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7280213/pdf/41467_2020_Article_16710.pdf)
 
-### `01_6_make_abagen_object.R`
+#### `01_6_make_abagen_object.R`
 - Convert the table into R object for later analyses that run in R.
 
-### `02_vertex_to_schaeffer_parcel_gene.R`
+#### `02_vertex_to_schaeffer_parcel_gene.R`
 - This script is not directly contributing to the current work, as the cell type deconvolution should be done at the sample level and within-donor to control for batch effect. We provide this script as a BONUS for people who want to parcel the gene expression into Schaefer atlas.
 - Makes parcel-wise gene expression averages for each ROI in the 100/200/300/400/500/600/700/800/900/1000 7/17 Network parcellations of Scheaffer et al (2018).
 - You can easily change the ROI and network resolution by changing the number in the script. Just remember to download the parcellation from [Git repo of Thomas Yeo group](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/HCP/fslr32k/cifti), and cite [Schaeffer et al (Cerebral Cortex 2018)](https://doi.org/10.1093/cercor/bhx179). (e.g. `Schaefer2018_300Parcels_7Networks_order.dscalar.nii` and `Schaefer2018_300Parcels_7Networks_order_info.txt` for 300 ROIs of 7 networks).
 - This script allows gene expression aggregation across all donors and within each donor.
 - The number of donor contributing to and the dominant donor within each parcel is reported in csv files, which help you to check the donor dominance issue. (e.g. `schaeffer300_7_numDonorsInEachParcel_abagen_NormZscore0.3.csv` and `schaeffer300_7_maxDonorPresenceInParcel_abagen_NormZscore0.3.csv` for 300 ROIs of 7 networks)
 
-### `03_preprocess_lake_data.R`
+#### `03_preprocess_lake_data.R`
 Preprocesses raw single-cell UMI visual and frontal cortex data from [Lake et al. 2018](https://www.nature.com/articles/nbt.4038). Freely available for download [here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE97930).
 - Applies basic preprocessing steps using the Seurat package.
 (1) identification of cell and gene expression outliers.
@@ -73,13 +73,13 @@ Preprocesses raw single-cell UMI visual and frontal cortex data from [Lake et al
 - Create gene name dictionary to match AHBA genes to sn-DropSeq genes.
 - Write *seurat_processed.Rdata data objects for later reading.
 
-### `04_cibersortx_prep.R`
+#### `04_cibersortx_prep.R`
 For visual and frontal cortex sn-DropSeq data, subset to those genes that are present in both.
 - Transform data out of log-space (format expected by CIBERSORTx).
 - To reduce collinearity among gene signature matrix, collapse cell subtypes into overarching categorie (e.g. In6a and In6b cell become just PVALB).
 - Write single-nuclei expression matrix, and AHBA mixture files per donor, as the cell type deconvolution should be done at the sample level and within-donor to control for batch effect. That's why we ask abagen to output the result at the sample level, instead of the parcel level. Abagen toolbox did the sample and gene normalization within each donor, so it suits our purpose well in this case.
 
-### Cell type deconvolution is performed at [CIBERSORTx](https://cibersortx.stanford.edu/)
+#### Cell type deconvolution is performed at [CIBERSORTx](https://cibersortx.stanford.edu/)
 - Files to feed CIBERSORTx:
 - 1) donor-level `Mixture` matrix (e.g. for donor 9861): `FrontalCortex_ahba_9861_mixture_new_NormZscore0.3.txt`, `VisualCortex_ahba_9861_mixture_new_NormZscore0.3.txt`
 - 2) `Single Cell Reference` matrix: `Lake_FrontalCortex_ahba_matched_sc_sample_new_NormZscore0.3.txt`, `Lake_VisualCortex_ahba_matched_sc_sample_new_NormZscore0.3.txt`
@@ -91,43 +91,43 @@ For visual and frontal cortex sn-DropSeq data, subset to those genes that are pr
      `Menu` -> `Impute Cell Fractions` -> `Custom` -> Signature matrix file: the file derived from 2) above -> Mixture file: `VisualCortex_ahba_9861_mixture_new_NormZscore0.3.txt` -> check `Enable batch correction` -> `S-mode` -> Single cell reference matrix file: `Lake_VisualCortex_ahba_matched_sc_sample_new_NormZscore0.3.txt` -> check `Disable quantile normalization` -> check `Run in absolute mode` -> Permutations for significance analysis: None
 - Download the reults and figures.
 
-### `05a_vertex_to_schaeffer_parcel_cell.R`
+#### `05a_vertex_to_schaeffer_parcel_cell.R`
 - Makes parcel-wise gene expression averages for each ROI in the 200/300/400/1000 7/17 Network parcellations of Scheaffer et al (2018).
 - In our work, we used 400 parcels and 7 networks resolution. You can easily change the ROI and network resolution by changing the number in the script. Just remember to download the parcellation from [Git repo of Thomas Yeo group](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/HCP/fslr32k/cifti), and cite [Schaeffer et al (Cerebral Cortex 2018)](https://doi.org/10.1093/cercor/bhx179). (e.g. `Schaefer2018_300Parcels_7Networks_order.dscalar.nii` and `Schaefer2018_300Parcels_7Networks_order_info.txt` for 300 ROIs of 7 networks).
 - Also plot the gene expression signature matrices, gene expression signature correlation matrices, and the cortical cell type fraction correlation matrices of Lake_DFC and Lake_VIS. 
 
-### `05b_cibersortx_compare_plots.R`
+#### `05b_cibersortx_compare_plots.R`
 - This script is the plotting part of the `05a_vertex_to_schaeffer_parcel_cell.R`. It mainly serves the purpose of making plots for the cell-type fractions imputed from AHBA processed under different combinations of parameters. You can skip this script if you just want to use the final combo for your project.
 
-## Part B: Parceling the gradients and comparing with cell type abundance distribution
-### `06_hcp_gradient_giitonii.sh`
+### Part B: Parceling the gradients and comparing with cell type abundance distribution
+#### `06_hcp_gradient_giitonii.sh`
 - Convert the gradients stored in gifti to nifti.
 
-### `07_SpintestHCPGradient.m`
+#### `07_SpintestHCPGradient.m`
 - Spins the gradient 1 and 2 values on fsaverage5.
 - Parcel the gradient values in Schaefer 400.
 - Calculate the parcel-level correlation between gradient values and cell type abundances, and calculate the p-value based on the null gradients generated from spin-test.
 - Requires matlab package download from [Alexander et al.](https://github.com/spin-test/spin-test).
 
-### `07a_VisualizationFig1_GradientNetwork.ipynb`
+#### `07a_VisualizationFig1_GradientNetwork.ipynb`
 - Make plots for Figure 1.
 
-### `07b_VisualizationFig2Supp1-2_CellGradientCorrelation.ipynb`
+#### `07b_VisualizationFig2Supp1-2_CellGradientCorrelation.ipynb`
 - Make plots for Figure 2 and supplement figures 1-2.
 
-### `08a_PermCCA_GradientVarbyAllCell.m`
+#### `08a_PermCCA_GradientVarbyAllCell.m`
 - Permulational CCA between gradients and all cell types common between Lake_DFC and Lake_VIS.
 - Require Matlab software download from [Winkler et al.](https://github.com/andersonwinkler/PermCCA).
 
-### `08b_PermCCA_GradualRemoval.m`
+#### `08b_PermCCA_GradualRemoval.m`
 - Permulational CCA between gradients and cell types with different removal combinations of gradient-correlated cell types.
 
-### `08c_VisualizationFig3Supp3-4_PermCCA.ipynb`
+#### `08c_VisualizationFig3Supp3-4_PermCCA.ipynb`
 - Make plots for Figure 3 and supplement figures 3-4.
 
-## Part C: Network-level cell type enrichment
+### Part C: Network-level cell type enrichment
 
-## Part D: Predicting functional network from cell type abundance
+### Part D: Predicting functional network from cell type abundance
 
 
 
