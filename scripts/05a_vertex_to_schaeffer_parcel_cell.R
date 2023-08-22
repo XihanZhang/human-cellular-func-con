@@ -69,113 +69,109 @@ parcel_average = function(ciber_dat, ref_region, parcels, net, cell_types, name_
     return(list(schaef_out, donor_specific_expression))
 }
 
-# change this according to your need
-parcels='400'
-#parcels='1000'
-#parcels='300'
-parcel_num = 400
-#parcel_num = 1000
-#parcel_num = 300
-net='7'
-
 ######### Frontal ############
 region = 'FrontalCortex'
 # for different parameter combinations
 #for ( para in c('0.1','0.3','0.5','ProbeMax', 'NormZscore', 'NormZscore0.3') ){
 # for the finalized parameter combo
 for ( para in c('NormZscore0.3') ){
-    # read cell type expression of "signature genes"
-    gep_file = paste0(ciber_dir, '/CIBERSORTx_Lake_',region,'_ahba_matched_sc_SignatureMatrix_new_',para,'.txt')
-    gep = read.table(gep_file, header=T)
-    
-    # create heatmap of gene signatures
-    file_out = paste0(paste0(base_dir, '/figures/',region,'_gep_signature_matrix_new_',para,'.pdf'))
-    CairoPDF(file_out, height=5, width=4)
-    heatmap.2(as.matrix(gep[,2:ncol(gep)]), col=brewer.pal(11,"RdBu"), key=FALSE, dendrogram='col', scale="row", trace="none", labRow=FALSE)
-    dev.off()
-    file_out
-    
-    # average expression of signature genes in each cell class
-    sig_cormat = cor(gep[,2:ncol(gep)], use = 'pairwise.complete')
-    cell_text = t(as.matrix(sig_cormat))
-    cell_text = round(cell_text,2)
-    # color pallette for the correlation plot
-    my_palette = colorRampPalette(c('#67001F','#B2182B','#D6604D','#F4A582','#FDDBC7','#F7F7F7','#D1E5F0','#92C5DE','#4393C3','#2166AC','#053061'))(n = 299)
-    my_palette = rev(my_palette)
-    
-    # plot
-    pdf(file = paste0(base_dir, '/figures/lake_',region,'_corr_of_signature_mat_new_',para,'.pdf'), width=10, height=10)
-    heatmap.2(as.matrix(sig_cormat), cellnote=cell_text, trace="none", notecol='black',col=my_palette,breaks=seq(-1, 1, length.out=300),
-              distfun=function(x) dist(x, method="euclidean"),dendrogram="col",density.info="none",
-              hclustfun=function(x) hclust(x, method="ward.D2"),Rowv=T, symm=F,symkey=F,symbreaks=T)
-    dev.off()
-    
-    # read AHBA informatioN
-    load(file=paste0(base_dir, '/data/ahba/ahba_ctx_norm_abagen_',para,'.Rdata'), verbose=T)
-    donor_arr = c("9861","10021","12876","14380","15496","15697")
-    
-    # read sample-to-vertex projection info
-    sample_info = read_csv(paste0(base_dir, '/data/ahba/sample_info_vertex_reannot_mapped_',para,'.csv'))
-    sample_dat  = sample_info[which(abs(sample_info$mm_to_surf) < 4),]
-    
-    write(region,'')
-    all_ciber = NULL
-    for (donor in donor_arr){
-        write(donor, '')
+    for (parcels in c('100','200','300','400','500','600','700','800','900','1000')){
+        parcel_num = strtoi(parcels)
+        for (net in c('7','17')){
+            # read cell type expression of "signature genes"
+            gep_file = paste0(ciber_dir, '/CIBERSORTx_Lake_',region,'_ahba_matched_sc_SignatureMatrix_new_',para,'.txt')
+            gep = read.table(gep_file, header=T)
+            
+            # create heatmap of gene signatures
+            file_out = paste0(paste0(base_dir, '/figures/',region,'_gep_signature_matrix_new_',para,'.pdf'))
+            CairoPDF(file_out, height=5, width=4)
+            heatmap.2(as.matrix(gep[,2:ncol(gep)]), col=brewer.pal(11,"RdBu"), key=FALSE, dendrogram='col', scale="row", trace="none", labRow=FALSE)
+            dev.off()
+            file_out
+            
+            # average expression of signature genes in each cell class
+            sig_cormat = cor(gep[,2:ncol(gep)], use = 'pairwise.complete')
+            cell_text = t(as.matrix(sig_cormat))
+            cell_text = round(cell_text,2)
+            # color pallette for the correlation plot
+            my_palette = colorRampPalette(c('#67001F','#B2182B','#D6604D','#F4A582','#FDDBC7','#F7F7F7','#D1E5F0','#92C5DE','#4393C3','#2166AC','#053061'))(n = 299)
+            my_palette = rev(my_palette)
+            
+            # plot
+            pdf(file = paste0(base_dir, '/figures/lake_',region,'_corr_of_signature_mat_new_',para,'.pdf'), width=10, height=10)
+            heatmap.2(as.matrix(sig_cormat), cellnote=cell_text, trace="none", notecol='black',col=my_palette,breaks=seq(-1, 1, length.out=300),
+                      distfun=function(x) dist(x, method="euclidean"),dendrogram="col",density.info="none",
+                      hclustfun=function(x) hclust(x, method="ward.D2"),Rowv=T, symm=F,symkey=F,symbreaks=T)
+            dev.off()
+            
+            # read AHBA informatioN
+            load(file=paste0(base_dir, '/data/ahba/ahba_ctx_norm_abagen_',para,'.Rdata'), verbose=T)
+            donor_arr = c("9861","10021","12876","14380","15496","15697")
+            
+            # read sample-to-vertex projection info
+            sample_info = read_csv(paste0(base_dir, '/data/ahba/sample_info_vertex_reannot_mapped_',para,'.csv'))
+            sample_dat  = sample_info[which(abs(sample_info$mm_to_surf) < 4),]
+            
+            write(region,'')
+            all_ciber = NULL
+            for (donor in donor_arr){
+                write(donor, '')
+                
+                path_to_ciber = paste0(ciber_dir, '/',region,'_ahba_',donor,'_fraction_new_',para,'.txt')
+                ciber_dat = read_delim(path_to_ciber, delim='\t') #read.table(path_to_ciber, header=T)
+                all_ciber = rbind(all_ciber, ciber_dat)
+                
+                ciber_field = paste0(region, '_CiberFrac')
+                ahba_data[[donor]][[ciber_field]] = merge(x=ciber_dat, y=sample_info, by.y='well_id', by.x='Mixture')
+            }
+            write_csv(x=all_ciber, path=paste0(ciber_dir, '/Cibersortx_AHBAsamples_Lake_',region,'_new_',para,'.csv'))
+            
+            # Read cell fractions derived from Visual Cortex cell signatures
+            ciber = read_csv(paste0(ciber_dir, '/Cibersortx_AHBAsamples_Lake_',region,'_new_',para,'.csv'))
         
-        path_to_ciber = paste0(ciber_dir, '/',region,'_ahba_',donor,'_fraction_new_',para,'.txt')
-        ciber_dat = read_delim(path_to_ciber, delim='\t') #read.table(path_to_ciber, header=T)
-        all_ciber = rbind(all_ciber, ciber_dat)
-        
-        ciber_field = paste0(region, '_CiberFrac')
-        ahba_data[[donor]][[ciber_field]] = merge(x=ciber_dat, y=sample_info, by.y='well_id', by.x='Mixture')
+            colnames(ciber) = paste0('DFC_',colnames(ciber))
+            
+            # merge cibersort data with AHBA sample dat
+            cell_types = colnames(ciber)[2:19]
+            sample_dat_ciber = merge(x=sample_dat, y=ciber, by.x='well_id', by.y='DFC_Mixture', all.x=T)
+            
+            # Collapse individual cell fractions into schaeffer parcels
+            # stitch the left/right verticies together to match Schaeffer parcel cifti format
+            sample_dat_ciber$bihemi_vertex = sample_dat_ciber$vertex + 1 # cifti indices index at 0, R indexes at 1
+            right_ctx_idxs = intersect(grep('right', sample_dat_ciber$structure_name), which(sample_dat_ciber$top_level == 'CTX'))
+            sample_dat_ciber$bihemi_vertex[right_ctx_idxs] = sample_dat_ciber$bihemi_vertex[right_ctx_idxs] + 32492
+            
+            # average parcel-wise fraction of cell types (DFC)
+            cell_types = gsub('DFC_', '', cell_types)
+            
+            # do it
+            DFC_schaef_out = parcel_average(ciber_dat=sample_dat_ciber, ref_region='DFC', parcels=parcels, net=net, cell_types=cell_types)
+            DFC_donor_specific_expression = DFC_schaef_out[[2]]
+            DFC_schaef_out = DFC_schaef_out[[1]]
+            
+            # DFC - create averaged plots
+            lake_dfc_dat = read_csv(paste0(base_dir, '/data/ahba/schaeffer_LAKE_DFC_',parcels,'_',net,'Net_expr_mat_new_',para,'.csv'))
+            
+            # Spatial correlation of DFC cell types
+            dfc_sc_spatial_cors = cor(t(lake_dfc_dat[,1:parcel_num]), use = 'pairwise.complete')
+            colnames(dfc_sc_spatial_cors) = lake_dfc_dat$gene
+            rownames(dfc_sc_spatial_cors) = lake_dfc_dat$gene
+            
+            
+            # get ready for plotting
+            my_palette = colorRampPalette(c('#67001F','#B2182B','#D6604D','#F4A582','#FDDBC7','#F7F7F7','#D1E5F0','#92C5DE','#4393C3','#2166AC','#053061'))(n = 299)
+            my_palette = rev(my_palette)
+            cell_text  = t(as.matrix(dfc_sc_spatial_cors))
+            cell_text  = round(cell_text,2)
+            
+            # plot corrmat!
+            pdf(file = paste0(base_dir,'/figures/PaperPlot_lake_dfc_spatial_cors_',para,'.pdf'), width=10, height=10)
+            heatmap.2(as.matrix(dfc_sc_spatial_cors), cellnote=cell_text, trace="none", notecol='black',col=my_palette,
+                      distfun=function(x) dist(x, method="euclidean"),dendrogram="col",density.info="none",
+                      hclustfun=function(x) hclust(x, method="ward.D2"),Rowv=T, symm = TRUE)
+            dev.off()
+        }
     }
-    write_csv(x=all_ciber, path=paste0(ciber_dir, '/Cibersortx_AHBAsamples_Lake_',region,'_new_',para,'.csv'))
-    
-    # Read cell fractions derived from Visual Cortex cell signatures
-    ciber = read_csv(paste0(ciber_dir, '/Cibersortx_AHBAsamples_Lake_',region,'_new_',para,'.csv'))
-
-    colnames(ciber) = paste0('DFC_',colnames(ciber))
-    
-    # merge cibersort data with AHBA sample dat
-    cell_types = colnames(ciber)[2:19]
-    sample_dat_ciber = merge(x=sample_dat, y=ciber, by.x='well_id', by.y='DFC_Mixture', all.x=T)
-    
-    # Collapse individual cell fractions into schaeffer parcels
-    # stitch the left/right verticies together to match Schaeffer parcel cifti format
-    sample_dat_ciber$bihemi_vertex = sample_dat_ciber$vertex + 1 # cifti indices index at 0, R indexes at 1
-    right_ctx_idxs = intersect(grep('right', sample_dat_ciber$structure_name), which(sample_dat_ciber$top_level == 'CTX'))
-    sample_dat_ciber$bihemi_vertex[right_ctx_idxs] = sample_dat_ciber$bihemi_vertex[right_ctx_idxs] + 32492
-    
-    # average parcel-wise fraction of cell types (DFC)
-    cell_types = gsub('DFC_', '', cell_types)
-    
-    # do it
-    DFC_schaef_out = parcel_average(ciber_dat=sample_dat_ciber, ref_region='DFC', parcels=parcels, net=net, cell_types=cell_types)
-    DFC_donor_specific_expression = DFC_schaef_out[[2]]
-    DFC_schaef_out = DFC_schaef_out[[1]]
-    
-    # DFC - create averaged plots
-    lake_dfc_dat = read_csv(paste0(base_dir, '/data/ahba/schaeffer_LAKE_DFC_',parcels,'_',net,'Net_expr_mat_new_',para,'.csv'))
-    
-    # Spatial correlation of DFC cell types
-    dfc_sc_spatial_cors = cor(t(lake_dfc_dat[,1:parcel_num]), use = 'pairwise.complete')
-    colnames(dfc_sc_spatial_cors) = lake_dfc_dat$gene
-    rownames(dfc_sc_spatial_cors) = lake_dfc_dat$gene
-    
-    
-    # get ready for plotting
-    my_palette = colorRampPalette(c('#67001F','#B2182B','#D6604D','#F4A582','#FDDBC7','#F7F7F7','#D1E5F0','#92C5DE','#4393C3','#2166AC','#053061'))(n = 299)
-    my_palette = rev(my_palette)
-    cell_text  = t(as.matrix(dfc_sc_spatial_cors))
-    cell_text  = round(cell_text,2)
-    
-    # plot corrmat!
-    pdf(file = paste0(base_dir,'/figures/PaperPlot_lake_dfc_spatial_cors_',para,'.pdf'), width=10, height=10)
-    heatmap.2(as.matrix(dfc_sc_spatial_cors), cellnote=cell_text, trace="none", notecol='black',col=my_palette,
-              distfun=function(x) dist(x, method="euclidean"),dendrogram="col",density.info="none",
-              hclustfun=function(x) hclust(x, method="ward.D2"),Rowv=T, symm = TRUE)
-    dev.off()
 }
 
 
@@ -185,97 +181,102 @@ region = 'VisualCortex'
 #for ( para in c('0.1','0.3','0.5','ProbeMax', 'NormZscore', 'NormZscore0.3') ){
 # for the finalized parameter combo
 for ( para in c('NormZscore0.3') ){
-    # read cell type expression of "signature genes"
-    gep_file = paste0(ciber_dir, '/CIBERSORTx_Lake_',region,'_ahba_matched_sc_SignatureMatrix_new_',para,'.txt')
-    gep = read.table(gep_file, header=T)
-    
-    # create heatmap of gene signatures
-    file_out = paste0(paste0(base_dir, '/figures/',region,'_gep_signature_matrix_new_',para,'.pdf'))
-    CairoPDF(file_out, height=5, width=4)
-    heatmap.2(as.matrix(gep[,2:ncol(gep)]), col=brewer.pal(11,"RdBu"), key=FALSE, dendrogram='col', scale="row", trace="none", labRow=FALSE)
-    dev.off()
-    file_out
-    
-    # average expression of signature genes in each cell class
-    sig_cormat = cor(gep[,2:ncol(gep)], use = 'pairwise.complete')
-    cell_text = t(as.matrix(sig_cormat))
-    cell_text = round(cell_text,2)
-    # color pallette for the correlation plot
-    my_palette = colorRampPalette(c('#67001F','#B2182B','#D6604D','#F4A582','#FDDBC7','#F7F7F7','#D1E5F0','#92C5DE','#4393C3','#2166AC','#053061'))(n = 299)
-    my_palette = rev(my_palette)
-    
-    # plot
-    pdf(file = paste0(base_dir, '/figures/lake_',region,'_corr_of_signature_mat_new_',para,'.pdf'), width=10, height=10)
-    heatmap.2(as.matrix(sig_cormat), cellnote=cell_text, trace="none", notecol='black',col=my_palette,breaks=seq(-1, 1, length.out=300),
-              distfun=function(x) dist(x, method="euclidean"),dendrogram="col",density.info="none",
-              hclustfun=function(x) hclust(x, method="ward.D2"),Rowv=T, symm=F,symkey=F,symbreaks=T)
-    dev.off()
-    
-    
-    # read AHBA informatioN
-    load(file=paste0(base_dir, '/data/ahba/ahba_ctx_norm_abagen_',para,'.Rdata'), verbose=T)
-    donor_arr = c("9861","10021","12876","14380","15496","15697")
-    
-    # read sample-to-vertex projection info
-    sample_info = read_csv(paste0(base_dir, '/data/ahba/sample_info_vertex_reannot_mapped_',para,'.csv'))
-    sample_dat  = sample_info[which(abs(sample_info$mm_to_surf) < 4),]
-    
-    write(region,'')
-    all_ciber = NULL
-    for (donor in donor_arr){
-        write(donor, '')
-        
-        path_to_ciber = paste0(ciber_dir, '/',region,'_ahba_',donor,'_fraction_new_',para,'.txt')
-        ciber_dat = read_delim(path_to_ciber, delim='\t') #read.table(path_to_ciber, header=T)
-        all_ciber = rbind(all_ciber, ciber_dat)
-        
-        ciber_field = paste0(region, '_CiberFrac')
-        ahba_data[[donor]][[ciber_field]] = merge(x=ciber_dat, y=sample_info, by.y='well_id', by.x='Mixture')
+    for (parcels in c('100','200','300','400','500','600','700','800','900','1000')){
+        parcel_num = strtoi(parcels)
+        for (net in c('7','17')){
+            # read cell type expression of "signature genes"
+            gep_file = paste0(ciber_dir, '/CIBERSORTx_Lake_',region,'_ahba_matched_sc_SignatureMatrix_new_',para,'.txt')
+            gep = read.table(gep_file, header=T)
+            
+            # create heatmap of gene signatures
+            file_out = paste0(paste0(base_dir, '/figures/',region,'_gep_signature_matrix_new_',para,'.pdf'))
+            CairoPDF(file_out, height=5, width=4)
+            heatmap.2(as.matrix(gep[,2:ncol(gep)]), col=brewer.pal(11,"RdBu"), key=FALSE, dendrogram='col', scale="row", trace="none", labRow=FALSE)
+            dev.off()
+            file_out
+            
+            # average expression of signature genes in each cell class
+            sig_cormat = cor(gep[,2:ncol(gep)], use = 'pairwise.complete')
+            cell_text = t(as.matrix(sig_cormat))
+            cell_text = round(cell_text,2)
+            # color pallette for the correlation plot
+            my_palette = colorRampPalette(c('#67001F','#B2182B','#D6604D','#F4A582','#FDDBC7','#F7F7F7','#D1E5F0','#92C5DE','#4393C3','#2166AC','#053061'))(n = 299)
+            my_palette = rev(my_palette)
+            
+            # plot
+            pdf(file = paste0(base_dir, '/figures/lake_',region,'_corr_of_signature_mat_new_',para,'.pdf'), width=10, height=10)
+            heatmap.2(as.matrix(sig_cormat), cellnote=cell_text, trace="none", notecol='black',col=my_palette,breaks=seq(-1, 1, length.out=300),
+                      distfun=function(x) dist(x, method="euclidean"),dendrogram="col",density.info="none",
+                      hclustfun=function(x) hclust(x, method="ward.D2"),Rowv=T, symm=F,symkey=F,symbreaks=T)
+            dev.off()
+            
+            
+            # read AHBA informatioN
+            load(file=paste0(base_dir, '/data/ahba/ahba_ctx_norm_abagen_',para,'.Rdata'), verbose=T)
+            donor_arr = c("9861","10021","12876","14380","15496","15697")
+            
+            # read sample-to-vertex projection info
+            sample_info = read_csv(paste0(base_dir, '/data/ahba/sample_info_vertex_reannot_mapped_',para,'.csv'))
+            sample_dat  = sample_info[which(abs(sample_info$mm_to_surf) < 4),]
+            
+            write(region,'')
+            all_ciber = NULL
+            for (donor in donor_arr){
+                write(donor, '')
+                
+                path_to_ciber = paste0(ciber_dir, '/',region,'_ahba_',donor,'_fraction_new_',para,'.txt')
+                ciber_dat = read_delim(path_to_ciber, delim='\t') #read.table(path_to_ciber, header=T)
+                all_ciber = rbind(all_ciber, ciber_dat)
+                
+                ciber_field = paste0(region, '_CiberFrac')
+                ahba_data[[donor]][[ciber_field]] = merge(x=ciber_dat, y=sample_info, by.y='well_id', by.x='Mixture')
+            }
+            write_csv(x=all_ciber, path=paste0(ciber_dir, '/Cibersortx_AHBAsamples_Lake_',region,'_new_',para,'.csv'))
+            
+            # Read cell fractions derived from Visual Cortex cell signatures
+            ciber = read_csv(paste0(ciber_dir, '/Cibersortx_AHBAsamples_Lake_',region,'_new_',para,'.csv'))
+            colnames(ciber) = paste0('VIS_',colnames(ciber))
+            
+            # merge cibersort data with AHBA sample dat
+            cell_types = colnames(ciber)[2:19]
+            sample_dat_ciber = merge(x=sample_dat, y=ciber, by.x='well_id', by.y='VIS_Mixture', all.x=T)
+            
+            # Collapse individual cell proportions into schaeffer parcels
+            # stitch the left/right verticies together to match Schaeffer parcel cifti format
+            sample_dat_ciber$bihemi_vertex = sample_dat_ciber$vertex + 1 # cifti indices index at 0, R indexes at 1
+            right_ctx_idxs = intersect(grep('right', sample_dat_ciber$structure_name), which(sample_dat_ciber$top_level == 'CTX'))
+            sample_dat_ciber$bihemi_vertex[right_ctx_idxs] = sample_dat_ciber$bihemi_vertex[right_ctx_idxs] + 32492
+            
+            # average parcel-wise fraction of cell types (VIS)
+            cell_types = gsub('VIS_', '', cell_types)
+            
+            # do it
+            VIS_schaef_out = parcel_average(ciber_dat=sample_dat_ciber, ref_region='VIS', parcels=parcels, net=net, cell_types=cell_types)
+            VIS_donor_specific_expression = VIS_schaef_out[[2]]
+            VIS_schaef_out = VIS_schaef_out[[1]]
+            
+            # VIS - create averaged plots
+            lake_vis_dat = read_csv(paste0(base_dir, '/data/ahba/schaeffer_LAKE_VIS_',parcels,'_',net,'Net_expr_mat_new_',para,'.csv'))
+            
+            
+            # Spatial correlation of DFC cell types
+            vis_sc_spatial_cors = cor(t(lake_vis_dat[,1:parcel_num]), use = 'pairwise.complete')
+            colnames(vis_sc_spatial_cors) = lake_vis_dat$gene
+            rownames(vis_sc_spatial_cors) = lake_vis_dat$gene
+            
+            
+            # get ready for plotting
+            my_palette = colorRampPalette(c('#67001F','#B2182B','#D6604D','#F4A582','#FDDBC7','#F7F7F7','#D1E5F0','#92C5DE','#4393C3','#2166AC','#053061'))(n = 299)
+            my_palette = rev(my_palette)
+            cell_text  = t(as.matrix(vis_sc_spatial_cors))
+            cell_text  = round(cell_text,2)
+            
+            # plot corrmat!
+            pdf(file = paste0(base_dir,'/figures/PaperPlot_lake_vis_spatial_cors_',para,'.pdf'), width=10, height=10)
+            heatmap.2(as.matrix(vis_sc_spatial_cors), cellnote=cell_text, trace="none", notecol='black',col=my_palette,
+                      distfun=function(x) dist(x, method="euclidean"),dendrogram="col",density.info="none",
+                      hclustfun=function(x) hclust(x, method="ward.D2"),Rowv=T, symm = TRUE)
+            dev.off()
+        }
     }
-    write_csv(x=all_ciber, path=paste0(ciber_dir, '/Cibersortx_AHBAsamples_Lake_',region,'_new_',para,'.csv'))
-    
-    # Read cell fractions derived from Visual Cortex cell signatures
-    ciber = read_csv(paste0(ciber_dir, '/Cibersortx_AHBAsamples_Lake_',region,'_new_',para,'.csv'))
-    colnames(ciber) = paste0('VIS_',colnames(ciber))
-    
-    # merge cibersort data with AHBA sample dat
-    cell_types = colnames(ciber)[2:19]
-    sample_dat_ciber = merge(x=sample_dat, y=ciber, by.x='well_id', by.y='VIS_Mixture', all.x=T)
-    
-    # Collapse individual cell proportions into schaeffer parcels
-    # stitch the left/right verticies together to match Schaeffer parcel cifti format
-    sample_dat_ciber$bihemi_vertex = sample_dat_ciber$vertex + 1 # cifti indices index at 0, R indexes at 1
-    right_ctx_idxs = intersect(grep('right', sample_dat_ciber$structure_name), which(sample_dat_ciber$top_level == 'CTX'))
-    sample_dat_ciber$bihemi_vertex[right_ctx_idxs] = sample_dat_ciber$bihemi_vertex[right_ctx_idxs] + 32492
-    
-    # average parcel-wise fraction of cell types (VIS)
-    cell_types = gsub('VIS_', '', cell_types)
-    
-    # do it
-    VIS_schaef_out = parcel_average(ciber_dat=sample_dat_ciber, ref_region='VIS', parcels=parcels, net=net, cell_types=cell_types)
-    VIS_donor_specific_expression = VIS_schaef_out[[2]]
-    VIS_schaef_out = VIS_schaef_out[[1]]
-    
-    # VIS - create averaged plots
-    lake_vis_dat = read_csv(paste0(base_dir, '/data/ahba/schaeffer_LAKE_VIS_',parcels,'_',net,'Net_expr_mat_new_',para,'.csv'))
-    
-    
-    # Spatial correlation of DFC cell types
-    vis_sc_spatial_cors = cor(t(lake_vis_dat[,1:parcel_num]), use = 'pairwise.complete')
-    colnames(vis_sc_spatial_cors) = lake_vis_dat$gene
-    rownames(vis_sc_spatial_cors) = lake_vis_dat$gene
-    
-    
-    # get ready for plotting
-    my_palette = colorRampPalette(c('#67001F','#B2182B','#D6604D','#F4A582','#FDDBC7','#F7F7F7','#D1E5F0','#92C5DE','#4393C3','#2166AC','#053061'))(n = 299)
-    my_palette = rev(my_palette)
-    cell_text  = t(as.matrix(vis_sc_spatial_cors))
-    cell_text  = round(cell_text,2)
-    
-    # plot corrmat!
-    pdf(file = paste0(base_dir,'/figures/PaperPlot_lake_vis_spatial_cors_',para,'.pdf'), width=10, height=10)
-    heatmap.2(as.matrix(vis_sc_spatial_cors), cellnote=cell_text, trace="none", notecol='black',col=my_palette,
-              distfun=function(x) dist(x, method="euclidean"),dendrogram="col",density.info="none",
-              hclustfun=function(x) hclust(x, method="ward.D2"),Rowv=T, symm = TRUE)
-    dev.off()
 }
