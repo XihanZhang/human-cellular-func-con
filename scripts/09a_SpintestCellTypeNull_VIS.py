@@ -66,6 +66,7 @@ LakeVIS_schaefer400_drop.to_csv(file_path)
 
 
 ### Spin them~
+# Cornblath method, more here: https://markello-spatialnulls.netlify.app/spatial_nulls.html
 # loop through the 18 cell types
 for this_cell in cell_types_VIS:
     print(this_cell)
