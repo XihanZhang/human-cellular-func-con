@@ -126,6 +126,9 @@ For visual and frontal cortex sn-DropSeq data, subset to those genes that are pr
 - Make plots for Figure 3 and supplement figures 3-4.
 
 ### Part C: Network-level cell type enrichment
+#### `09a_SpintestCellTypeNull_DFC.py` and `09a_SpintestCellTypeNull_VIS.py`
+- Prepare the cell type abundances map and use spin-test to generate null abundance distribution of each cell type.
+- `09a_SpintestCellTypeNull_DFC.sh` and `09a_SpintestCellTypeNull_VIS.sh` are the scripts to run these analysis in Milgram cluster.
 
 ### Part D: Predicting functional network from cell type abundance
 
