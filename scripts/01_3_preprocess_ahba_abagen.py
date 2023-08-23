@@ -18,7 +18,8 @@ expression, coords = abagen.get_samples_in_mask(mask=None,norm_structures='corte
 
 
 # Part 2: fine-tune the parameters of pipeline
-# function for fine-tunning
+# function for parameter fine-tunning
+# We set the default parameter use as displayed below, but the final parameter combination is different from the default ones.
 def preprocess_ahba(para_change, ibf_threshold=0.5, probe_selection='diff_stability',
                     sample_norm='scaled_robust_sigmoid', gene_norm='scaled_robust_sigmoid'):
 
