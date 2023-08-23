@@ -1,6 +1,7 @@
 # human-cellular-func-con
 
 This repo provide analysis-ready cell type abundance maps and analysis code for [The cellular underpinning of human cortical functional connectome (under review)](https://www.biorxiv.org/content/10.1101/2023.07.05.547828v1.abstract)
+
 Zhang, X. H., Anderson, K. M., Dong, H. M., Chopra, S., Dhamala, E., Emani, P. S., ... & Holmes, A. J. (2023). The Cellular Underpinnings of the Human Cortical Connectome. bioRxiv, 2023-07.
 
 ## Analysis-ready cell maps
