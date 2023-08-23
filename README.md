@@ -4,6 +4,8 @@ This repo provide analysis-ready cell type abundance maps and analysis code for 
 
 Zhang, X. H., Anderson, K. M., Dong, H. M., Chopra, S., Dhamala, E., Emani, P. S., ... & Holmes, A. J. (2023). The Cellular Underpinnings of the Human Cortical Connectome. bioRxiv, 2023-07.
 
+Keywords: Functional gradients; Functional networks; Cortical organization; fMRI; Genetics; Cell-type imputation; Inhibitory interneurons; Excitatory neurons; Gene transcription
+
 ## Analysis-ready cell maps
 Please cite the above paper for the use of these maps:
 ### Cell-type abundaces in Schaefer 100/200/300/400/500/600/700/800/900/1000 parcellation are provided in `/cell_maps`.
@@ -136,6 +138,14 @@ For visual and frontal cortex sn-DropSeq data, subset to those genes that are pr
 - Calculate p-values and make plots for Figure 4.
 
 ### Part D: Predicting functional network from cell type abundance
+#### `10a_Spin_Network_Labels.ipynb`
+- Using spin-test to generate 1000 null network labels fro each parcel.
+- Also provide code to spin the cell type abundance at the parcel level, which is already included in `09a_SpintestCellTypeNull_DFC.py`. Here we include it just in case someone want to do both in one script.
 
+#### `10b_Classifying pipeline.ipynb`
+- Train the classifiers from the empirical data and the null data generated in the previous step.
+
+#### `10c_Classifying pipeline.ipynb`
+- Make plots for figure 5 and supplement figures 5-10.
 
 
