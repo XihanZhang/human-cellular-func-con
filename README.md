@@ -10,7 +10,7 @@ P.S. I'd be very happy if you cite our work-your supports encourage me sticking 
 
 ## Analysis-ready cell maps
 Please cite the above paper for the use of these maps:
-### Cell-type abundaces imputed from Lake dataset in Schaefer 100/200/300/400/500/600/700/800/900/1000 parcellation are provided in `/cell_maps`.
+### Cell-type abundaces in Schaefer 100/200/300/400/500/600/700/800/900/1000 parcellation are provided in `/cell_maps`.
 e.g. for group-aggregated cell type abundances in schaefer 400 and 7 network parcellation, files are:
 - `schaeffer_LAKE_DFC_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_DFC and AHBA processed with `ibf=0.3`, `normalization=zscore`.
 - `schaeffer_LAKE_VIS_400_7Net_expr_mat_new_NormZscore0.3.csv`, imputed from Lake_VIS and AHBA processed with `ibf=0.3`, `normalization=zscore`.
