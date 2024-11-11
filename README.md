@@ -6,8 +6,6 @@ Zhang, X. H.(张喜寒), Anderson, K. M., Dong, H. M.（董昊铭）, Chopra, S.
 
 Keywords: Functional gradients; Functional networks; Cortical organization; fMRI; Genetics; Cell-type imputation; Inhibitory interneurons; Excitatory neurons; Gene transcription
 
-P.S. I'd be very happy if you cite our work-your supports encourage me sticking with the phylosophy of doing works that are useful to others :)
-
 ## Analysis-ready cell maps
 Please cite the above paper for the use of these maps:
 ### Cell-type abundaces in Schaefer 100/200/300/400/500/600/700/800/900/1000 parcellation are provided in `/cell_maps`.
