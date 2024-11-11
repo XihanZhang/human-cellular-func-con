@@ -8,6 +8,8 @@ Keywords: Functional gradients; Functional networks; Cortical organization; fMRI
 
 ## Analysis-ready cell maps
 Please cite the above paper for the use of cell maps and code:
+
+Below is the structure of the cell maps:
 ```
 --cell maps
       |--vertex_level
