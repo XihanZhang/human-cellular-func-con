@@ -14,7 +14,7 @@ Below is the structure of the cell maps:
 --cell maps
       |--vertex_level
               |--'Jorstad_cell_type_fractions_vertex_level.csv': cell fractions per AHBA sample were imputed from Jorstad dataset. 'well_id' is the AHBA sample ID.
-              |--'sample_info_vertex_reannot_mapped_0.3.csv': AHBA sample information are stored in this table. Use the column 'well_id' to match the other information like MNI coordinates, or vertex id.
+              |--'sample_info_vertex_reannot_mapped_0.3.csv': AHBA sample information are stored in this table. Use the column 'well_id' to match the other information like MNI coordinates, or vertex id (fs_LR 32k).
       |--Schaefer_atalas
                 |--Jorstad
                       |--donor_level_cell_maps: cell fractions imputed from Jorstad dataset and each individual AHBA donor are aggerated in Schaefer atalses.
