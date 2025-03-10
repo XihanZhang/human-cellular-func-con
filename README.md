@@ -2,7 +2,7 @@
 
 This repo provide analysis-ready cell type abundance maps and analysis code for [The cell-type underpinnings of human functional cortical connectome (Nature Neuroscience 2024)](https://doi.org/10.1038/s41593-024-01812-2) 
 
-Zhang, X. H.(张喜寒), Anderson, K. M., Dong, H. M.（董昊铭）, Chopra, S., Dhamala, E., Emani, P. S., Grestein, M. B., Margulies, D. S., & Holmes, A. J. (2024). The cell-type underpinnings of human functional cortical connectome. (Nature Neuroscience 2024)
+Zhang, X. H.(张喜寒), Anderson, K. M., Dong, H. M.（董昊铭）, Chopra, S., Dhamala, E., Emani, P. S., Grestein, M. B., Margulies, D. S., & Holmes, A. J. (2024). The cell-type underpinnings of the human functional cortical connectome. Nat Neurosci 28, 150–160 (2025). https://doi.org/10.1038/s41593-024-01812-2
 
 Keywords: Functional gradients; Functional networks; Cortical organization; fMRI; Genetics; Cell-type imputation; Inhibitory interneurons; Excitatory neurons; Gene transcription
 
